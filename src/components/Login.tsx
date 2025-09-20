@@ -107,8 +107,20 @@ export default function Login({ onLogin }: LoginProps) {
           <div className="mt-6 pt-6 border-t border-gray-200">
             <div className="space-y-2 text-xs text-gray-500 text-center">
               <p>Credenciales por defecto:</p>
-              <p>Admin: admin / admin123</p>
-              <p>Operador: operador / op123</p>
+              <p><strong>Admin:</strong> admin / admin123</p>
+              <p><strong>Operador:</strong> operador / op123</p>
+            </div>
+            <div className="mt-4 text-center">
+              <button
+                type="button"
+                onClick={() => {
+                  setUsername('operador');
+                  setPassword('op123');
+                }}
+                className="text-xs text-blue-600 hover:text-blue-800 underline"
+              >
+                Usar credenciales de operador
+              </button>
             </div>
           </div>
         </div>

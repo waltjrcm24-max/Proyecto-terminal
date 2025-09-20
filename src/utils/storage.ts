@@ -26,7 +26,9 @@ const AUTH_KEY = 'waste_management_auth';
 // Initialize default data
 export const initializeStorage = () => {
   if (!localStorage.getItem(USERS_KEY)) {
-    localStorage.setItem(USERS_KEY, JSON.stringify([DEFAULT_USER, DEFAULT_OPERATOR]));
+    const defaultUsers = [DEFAULT_USER, DEFAULT_OPERATOR];
+    localStorage.setItem(USERS_KEY, JSON.stringify(defaultUsers));
+    console.log('Usuarios inicializados:', defaultUsers);
   }
   
   if (!localStorage.getItem(WASTE_RECORDS_KEY)) {
@@ -41,12 +43,17 @@ export const initializeStorage = () => {
 // Users
 export const getUsers = (): User[] => {
   const users = localStorage.getItem(USERS_KEY);
-  return users ? JSON.parse(users) : [DEFAULT_USER, DEFAULT_OPERATOR];
+  const parsedUsers = users ? JSON.parse(users) : [DEFAULT_USER, DEFAULT_OPERATOR];
+  console.log('Usuarios disponibles:', parsedUsers);
+  return parsedUsers;
 };
 
 export const authenticateUser = (username: string, password: string): User | null => {
   const users = getUsers();
-  return users.find(user => user.username === username && user.password === password) || null;
+  console.log('Intentando autenticar:', { username, password });
+  const user = users.find(user => user.username === username && user.password === password) || null;
+  console.log('Usuario encontrado:', user);
+  return user;
 };
 
 // Waste Records
