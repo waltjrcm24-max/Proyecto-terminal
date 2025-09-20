@@ -9,6 +9,14 @@ const DEFAULT_USER: User = {
   name: 'Administrador del Sistema'
 };
 
+// Default operator user
+const DEFAULT_OPERATOR: User = {
+  id: '2',
+  username: 'operador',
+  password: 'op123',
+  role: 'operator',
+  name: 'Operador de Campo'
+};
 // Storage keys
 const USERS_KEY = 'waste_management_users';
 const WASTE_RECORDS_KEY = 'waste_management_records';
@@ -18,7 +26,7 @@ const AUTH_KEY = 'waste_management_auth';
 // Initialize default data
 export const initializeStorage = () => {
   if (!localStorage.getItem(USERS_KEY)) {
-    localStorage.setItem(USERS_KEY, JSON.stringify([DEFAULT_USER]));
+    localStorage.setItem(USERS_KEY, JSON.stringify([DEFAULT_USER, DEFAULT_OPERATOR]));
   }
   
   if (!localStorage.getItem(WASTE_RECORDS_KEY)) {
@@ -33,7 +41,7 @@ export const initializeStorage = () => {
 // Users
 export const getUsers = (): User[] => {
   const users = localStorage.getItem(USERS_KEY);
-  return users ? JSON.parse(users) : [DEFAULT_USER];
+  return users ? JSON.parse(users) : [DEFAULT_USER, DEFAULT_OPERATOR];
 };
 
 export const authenticateUser = (username: string, password: string): User | null => {

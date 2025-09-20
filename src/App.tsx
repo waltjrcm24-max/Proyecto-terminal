@@ -3,6 +3,7 @@ import { Plus, BarChart3, FileText } from 'lucide-react';
 import Login from './components/Login';
 import Layout from './components/Layout';
 import WasteForm from './components/WasteForm';
+import TabletWasteForm from './components/TabletWasteForm';
 import Dashboard from './components/Dashboard';
 import Reports from './components/Reports';
 import { initializeStorage, getAuthState, getWasteRecords } from './utils/storage';
@@ -41,6 +42,10 @@ function App() {
     return <Login onLogin={handleLogin} />;
   }
 
+  // Operator users only see the tablet interface
+  if (authState.user?.role === 'operator') {
+    return <TabletWasteForm user={authState.user} onRecordAdded={handleRecordAdded} />;
+  }
   const tabs = [
     {
       id: 'capture' as const,

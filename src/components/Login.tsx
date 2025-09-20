@@ -105,9 +105,11 @@ export default function Login({ onLogin }: LoginProps) {
           </form>
 
           <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-xs text-gray-500 text-center">
-              Credenciales por defecto: admin / admin123
-            </p>
+            <div className="space-y-2 text-xs text-gray-500 text-center">
+              <p>Credenciales por defecto:</p>
+              <p>Admin: admin / admin123</p>
+              <p>Operador: operador / op123</p>
+            </div>
           </div>
         </div>
       </div>
