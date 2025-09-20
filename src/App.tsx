@@ -42,11 +42,15 @@ function App() {
     return <Login onLogin={handleLogin} />;
   }
 
-  // Operator users only see the tablet interface
-  if (authState.user?.role === 'operator') {
-    return <TabletWasteForm user={authState.user} onRecordAdded={handleRecordAdded} />;
-  }
-  const tabs = [
+  // Define tabs based on user role
+  const tabs = authState.user?.role === 'operator' ? [
+    {
+      id: 'capture' as const,
+      name: 'Captura de Residuos',
+      icon: Plus,
+      color: 'text-green-600 bg-green-100'
+    }
+  ] : [
     {
       id: 'capture' as const,
       name: 'Captura de Información',
@@ -103,6 +107,13 @@ function App() {
       {/* Tab Content */}
       <div>
         {activeTab === 'capture' && (
+          authState.user?.role === 'operator' ? (
+            <TabletWasteForm user={authState.user} onRecordAdded={handleRecordAdded} />
+          ) : (
+            <WasteForm user={authState.user} onRecordAdded={handleRecordAdded} />
+          )
+        )}
+        {activeTab === 'capture' && authState.user?.role !== 'operator' && (
           <WasteForm user={authState.user} onRecordAdded={handleRecordAdded} />
         )}
         {activeTab === 'dashboard' && (
