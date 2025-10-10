@@ -3,6 +3,7 @@ import { Plus, BarChart3, FileText } from 'lucide-react';
 import Login from './components/Login';
 import Layout from './components/Layout';
 import WasteForm from './components/WasteForm';
+import TabletWasteForm from './components/TabletWasteForm';
 import Dashboard from './components/Dashboard';
 import Reports from './components/Reports';
 import { initializeStorage, getAuthState, getWasteRecords } from './utils/storage';
@@ -41,7 +42,15 @@ function App() {
     return <Login onLogin={handleLogin} />;
   }
 
-  const tabs = [
+  // Define tabs based on user role
+  const tabs = authState.user?.role === 'operator' ? [
+    {
+      id: 'capture' as const,
+      name: 'Captura de Residuos',
+      icon: Plus,
+      color: 'text-green-600 bg-green-100'
+    }
+  ] : [
     {
       id: 'capture' as const,
       name: 'Captura de Información',
@@ -98,7 +107,11 @@ function App() {
       {/* Tab Content */}
       <div>
         {activeTab === 'capture' && (
-          <WasteForm user={authState.user} onRecordAdded={handleRecordAdded} />
+          authState.user?.role === 'operator' ? (
+            <TabletWasteForm user={authState.user} onRecordAdded={handleRecordAdded} />
+          ) : (
+            <WasteForm user={authState.user} onRecordAdded={handleRecordAdded} />
+          )
         )}
         {activeTab === 'dashboard' && (
           <Dashboard records={records} />
