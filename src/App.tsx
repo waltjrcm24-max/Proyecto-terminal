@@ -112,6 +112,12 @@ function App() {
           ) : (
             <WasteForm user={authState.user} onRecordAdded={handleRecordAdded} />
           )
+<<<<<<< HEAD
+=======
+        )}
+        {activeTab === 'capture' && authState.user?.role !== 'operator' && (
+          <WasteForm user={authState.user} onRecordAdded={handleRecordAdded} />
+>>>>>>> b64e23206617e3b413d01f977b4f08bcac08d4c1
         )}
         {activeTab === 'dashboard' && (
           <Dashboard records={records} />
